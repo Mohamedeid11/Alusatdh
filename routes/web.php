@@ -1,7 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    return view('dashboard.auth.login');
+});
+
+Route::get('/' ,[HomeController::class , 'index'])->name('index');
+
+Route::group(['as' => 'auth.'], function () {
+    Route::get('/login', [AuthController::class , 'showLoginForm' ])->name('login');
+    Route::post('/login', [AuthController::class , 'login' ])->name('postLogin');
+    Route::get('/register', [AuthController::class , 'register' ])->name('register');
 });

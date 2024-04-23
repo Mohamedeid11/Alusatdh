@@ -13,6 +13,9 @@
 <script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
 <script src="{{asset('assets/js/custom/modals/upgrade-plan.js')}}"></script>
 <!--end::Page Custom Javascript-->
+
+<script src="{{asset('assets/js/custom/authentication/sign-in/general.js')}}"></script>
+
 <!--end::Javascript-->
 
 @yield('scripts')
