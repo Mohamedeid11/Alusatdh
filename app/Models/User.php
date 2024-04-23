@@ -17,7 +17,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'status', 'gender', 'phone', 'photo', 'time_zone', 'rate_per_hour', 'facebook_token', 'google_token'
+        'first_name', 'last_name', 'email', 'password', 'status', 'gender', 'phone', 'photo', 'time_zone',
+        'rate_per_hour', 'facebook_token', 'google_token', 'city' , 'country_id'
     ];
 
     protected $guard_name  = 'web';
@@ -43,5 +44,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 }

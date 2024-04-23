@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 Route::get('/login', function () {
     return view('dashboard.auth.login');
@@ -15,3 +16,5 @@ Route::group(['as' => 'auth.'], function () {
     Route::post('/login', [AuthController::class , 'login' ])->name('postLogin');
     Route::get('/register', [AuthController::class , 'register' ])->name('register');
 });
+
+Route::resource('/user' , UserController::class);

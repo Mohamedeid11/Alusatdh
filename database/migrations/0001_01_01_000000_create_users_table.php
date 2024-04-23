@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('gender',['male','female']);
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
+            $table->string('city')->nullable();
             $table->boolean('status')->default(1)->comment('1 = active | 0 = blocked');
             $table->string('time_zone');
             $table->string('password');
@@ -26,6 +27,9 @@ return new class extends Migration
             $table->string('facebook_token')->nullable();
             $table->string('google_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+
+//            $table->foreignId('county_id')->nullable()->constrained('countries')->onDelete('set null');
+
             $table->rememberToken();
             $table->timestamps();
         });
