@@ -8,7 +8,7 @@ Route::get('/login', function () {
     return view('dashboard.auth.login');
 });
 
-Route::get('/' ,[HomeController::class , 'index'])->name('index');
+Route::get('/' ,[HomeController::class , 'index'])->name('index')->middleware('auth');
 
 Route::group(['as' => 'auth.'], function () {
     Route::get('/login', [AuthController::class , 'showLoginForm' ])->name('login');

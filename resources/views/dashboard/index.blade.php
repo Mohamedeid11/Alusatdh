@@ -25,6 +25,6 @@
 @endsection
 
 @section('content')
-    @dd(auth()->user())
+
 @endsection
 <!--end::Content-->
