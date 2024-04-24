@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('city')->nullable();
             $table->boolean('status')->default(1)->comment('1 = active | 0 = blocked');
-            $table->string('time_zone');
+            $table->string('timezone')->default('UTC');
             $table->string('password');
             $table->integer('rate_per_hour')->nullable();
             $table->string('facebook_token')->nullable();

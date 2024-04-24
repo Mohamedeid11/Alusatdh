@@ -20,7 +20,6 @@ class UserSeeder extends Seeder
             'phone'     => '0123456789',
             'password'  => '123456789',
             'gender'  => 'male',
-            'time_zone'  => '+2',
         ]);
     }
 }
