@@ -23,9 +23,8 @@
 <script src="{{asset('assets/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
 <script src="{{asset('assets/js/custom/utilities/modals/create-app.js')}}"></script>
 <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}"></script>
+<script src="{{asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js')}}"></script>
+<script src="{{asset('assets/js/custom/apps/ecommerce/catalog/save-category.js')}}"></script>
 <!--end::Javascript-->
-
-
-
 
 @yield('scripts')
