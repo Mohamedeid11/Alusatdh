@@ -54,33 +54,32 @@
                             <!--end::Users-->
                             <!--begin::Permissions-->
                             <div class="d-flex flex-column text-gray-600">
-
-                                    @if ($role)
+                                @if ($role)
+                                    @php
+                                        $permissionGroups = [];
+                                    @endphp
+                                    @foreach($role->permissions as $permission)
                                         @php
-                                            $permissionGroups = [];
+                                            $permissionName = explode('.', $permission->name)[0];
+                                            if (!isset($permissionGroups[$permissionName])) {
+                                                $permissionGroups[$permissionName] = [];
+                                            }
+                                            $permissionGroups[$permissionName][] = $permission->name;
                                         @endphp
-                                        @foreach($role->permissions as $permission)
-                                            @php
-                                                $permissionName = explode('.', $permission->name)[0];
-                                                if (!isset($permissionGroups[$permissionName])) {
-                                                    $permissionGroups[$permissionName] = [];
-                                                }
-                                                $permissionGroups[$permissionName][] = $permission->name;
-                                            @endphp
-                                        @endforeach
-                                        @foreach($permissionGroups as $groupName => $groupPermissions)
-                                            <div class="d-flex align-items-center py-2">
-                                                <span class="bullet bg-primary me-3"></span>{{$groupName}}
-                                            </div>
-                                        @endforeach
-                                    @endif
+                                    @endforeach
+                                    @foreach($permissionGroups as $groupName => $groupPermissions)
+                                        <div class="d-flex align-items-center py-2">
+                                            <span class="bullet bg-primary me-3"></span>{{$groupName}}
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                             <!--end::Permissions-->
                         </div>
                         <!--end::Card body-->
                         <!--begin::Card footer-->
                         <div class="card-footer flex-wrap pt-0">
-                            <a href="role-view.html"
+                            <a href="{{route('roles.show' , $role->id)}}"
                                class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
                             <button type="button" class="btn btn-light btn-active-light-primary my-1"
                                     data-bs-toggle="modal" data-bs-target="#editRoleModal-{{ $role->id }}">Edit Role</button>
@@ -181,7 +180,7 @@
                                             <!--begin::Actions-->
                                             <div class="text-center pt-15">
                                                 <button type="reset" class="btn btn-light me-3"
-                                                        data-kt-roles-modal-action="cancel">Discard</button>
+                                                        data-bs-dismiss="modal">Discard</button>
                                                 <button type="submit" class="btn btn-primary"
                                                         data-kt-roles-modal-action="submit">
                                                     <span class="indicator-label">Submit</span>
@@ -809,8 +808,5 @@
                 $('#all_checked').prop('checked', false);
             }
         });
-    </script>
-    <script>
-        $("#kt_daterangepicker_1").daterangepicker();
     </script>
 @endsection

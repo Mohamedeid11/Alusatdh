@@ -2,7 +2,7 @@
 
 namespace Modules\Country\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller; // Extend this class
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Modules\Country\app\Services\CountryService;
@@ -19,10 +19,10 @@ class CountryController extends Controller
     public function __construct(CountryService  $countryService)
     {
         $this->countryService = $countryService;
-//        $this->middleware('permission:country.read,admin', ['only' => ['index']]);
-//        $this->middleware('permission:country.create,admin', ['only' => ['create', 'store']]);
-//        $this->middleware('permission:country.edit,admin', ['only' => ['edit', 'update']]);
-//        $this->middleware('permission:country.delete,admin', ['only' => ['destroy']]);
+        $this->middleware('permission:countries.read', ['only' => ['index']]);
+        $this->middleware('permission:countries.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:countries.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:countries.delete', ['only' => ['destroy']]);
     }
 
     /**

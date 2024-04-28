@@ -17,10 +17,10 @@ class RolesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:roles.read,admin', ['only' => ['index']]);
-        $this->middleware('permission:roles.create,admin', ['only' => ['create', 'store']]);
-        $this->middleware('permission:roles.edit,admin', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:roles.delete,admin', ['only' => ['destroy']]);
+        $this->middleware('permission:roles.read', ['only' => ['index']]);
+        $this->middleware('permission:roles.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:roles.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:roles.delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -61,9 +61,9 @@ class RolesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role)
+    public function show(Role $role)
     {
-        return view('dashboard.roles.form', new RoleViewModel($role));
+        return view('dashboard.roles.view', new RoleViewModel($role));
     }
 
     /**
@@ -79,7 +79,7 @@ class RolesController extends Controller
 
         $role->syncPermissions($permissionNames);
         Session()->flash('success', 'Role Updated Successfully');
-        return redirect()->route('roles.index');
+        return redirect()->back()->with('role');
     }
 
     /**
