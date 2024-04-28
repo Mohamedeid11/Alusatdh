@@ -27,7 +27,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta property="og:title"
           content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
-    @include('layouts.head')
+    @include('dashboard.layouts.head')
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -47,7 +47,7 @@ License: For each use you must have a valid license purchased only from above li
             <!--end::Logo-->
             <!--begin::Wrapper-->
             <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
-                @include('layouts.alerts')
+                @include('dashboard.layouts.alerts')
                 <!--begin::Form-->
                 <form class="form w-100" action="{{route('auth.postLogin')}}" method="POST">
                     @csrf
@@ -151,7 +151,7 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Authentication - Sign-in-->
 </div>
 <!--end::Main-->
-@include('layouts.foot')
+@include('dashboard.layouts.foot')
 </body>
 <!--end::Body-->
 

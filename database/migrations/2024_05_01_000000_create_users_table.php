@@ -28,7 +28,8 @@ return new class extends Migration
             $table->string('google_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
 
-//            $table->foreignId('county_id')->nullable()->constrained('countries')->onDelete('set null');
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
 
             $table->rememberToken();
             $table->timestamps();

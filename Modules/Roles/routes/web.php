@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Country\Http\Controllers\CountryController;
+use Modules\Roles\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +15,5 @@ use Modules\Country\Http\Controllers\CountryController;
 */
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('country', CountryController::class)->names('country');
+    Route::resource('roles', RolesController::class)->names('roles');
 });

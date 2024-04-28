@@ -12,7 +12,8 @@
         "mcamara/laravel-localization": "^2.0",
         "nwidart/laravel-modules": "^11.0",
         "spatie/laravel-permission": "^6.7",
-        "spatie/laravel-translatable": "^6.6"
+        "spatie/laravel-translatable": "^6.6",
+        "spatie/laravel-view-models": "^1.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
