@@ -17,6 +17,12 @@
 @endsection
 
 @section('crumbs')
+    <!--begin::Title-->
+    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Users</h1>
+    <!--end::Title-->
+    <!--begin::Separator-->
+    <span class="h-20px border-gray-200 border-start mx-4"></span>
+    <!--end::Separator-->
     <!--begin::Breadcrumb-->
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
         <!--begin::Item-->
@@ -30,15 +36,7 @@
         </li>
         <!--end::Item-->
         <!--begin::Item-->
-        <li class="breadcrumb-item text-muted">User</li>
-        <!--end::Item-->
-        <!--begin::Item-->
-        <li class="breadcrumb-item">
-            <span class="bullet bg-gray-200 w-5px h-2px"></span>
-        </li>
-        <!--end::Item-->
-        <!--begin::Item-->
-        <li class="breadcrumb-item text-dark">Customer Listing</li>
+        <li class="breadcrumb-item text-dark">Users</li>
         <!--end::Item-->
     </ul>
     <!--end::Breadcrumb-->
@@ -294,26 +292,22 @@
                                      data-kt-menu="true">
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
-                                        <a href="apps/customers/view.html"
-                                           class="menu-link px-3">View</a>
+                                        <a href="{{route('user.show' , $user->id)}}" class="menu-link px-3">View</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
-                                        <a href="apps/customers/view.html"
-                                           class="menu-link px-3">Activate / Deactivate</a>
+                                        <a href="apps/customers/view.html" class="menu-link px-3">Activate / Deactivate</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
-                                        <a href="apps/customers/view.html"
-                                           class="menu-link px-3">Pause</a>
+                                        <a href="apps/customers/view.html" class="menu-link px-3">Pause</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3 text-danger"
-                                           data-kt-customer-table-filter="delete_row">Delete</a>
+                                        <a href="#" class="menu-link px-3 text-danger" data-kt-customer-table-filter="delete_row">Delete</a>
                                     </div>
                                     <!--end::Menu item-->
                                 </div>

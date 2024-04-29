@@ -7,6 +7,12 @@
 
 <!--begin::Content-->
 @section('crumbs')
+    <!--begin::Title-->
+    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Countries</h1>
+    <!--end::Title-->
+    <!--begin::Separator-->
+    <span class="h-20px border-gray-200 border-start mx-4"></span>
+    <!--end::Separator-->
     <!--begin::Breadcrumb-->
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
         <!--begin::Item-->
@@ -22,7 +28,6 @@
         <!--begin::Item-->
         <li class="breadcrumb-item text-dark">Country</li>
         <!--end::Item-->
-
     </ul>
     <!--end::Breadcrumb-->
 @endsection
@@ -252,7 +257,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <img src="{{asset('storage/' . $country->icon)}}" width="60" height="60">
+                                    <img src="{{storage_asset( $country->icon)}}" width="60" height="60">
                                 </td>
                                 <td class="text-end">
                                     <a href="#"

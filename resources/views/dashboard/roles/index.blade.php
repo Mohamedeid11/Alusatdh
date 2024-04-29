@@ -6,6 +6,12 @@
 @endsection
 
 @section('crumbs')
+    <!--begin::Title-->
+    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Roles</h1>
+    <!--end::Title-->
+    <!--begin::Separator-->
+    <span class="h-20px border-gray-200 border-start mx-4"></span>
+    <!--end::Separator-->
     <!--begin::Breadcrumb-->
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
         <!--begin::Item-->
@@ -19,7 +25,7 @@
         </li>
         <!--end::Item-->
         <!--begin::Item-->
-        <li class="breadcrumb-item text-muted">Roles</li>
+        <li class="breadcrumb-item text-dark">Roles</li>
         <!--end::Item-->
     </ul>
     <!--end::Breadcrumb-->
@@ -750,8 +756,8 @@
 @endsection
 
 @section('scripts')
-    <script src="assets/js/custom/apps/user-management/roles/list/add.js"></script>
-    <script src="assets/js/custom/apps/user-management/roles/list/update-role.js"></script>
+    <script src="{{asset('assets/js/custom/apps/user-management/roles/list/add.js')}}"></script>
+    <script src="{{asset('assets/js/custom/apps/user-management/roles/list/update-role.js')}}"></script>
 
     <script>
         new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {

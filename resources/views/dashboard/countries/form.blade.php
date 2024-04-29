@@ -8,6 +8,13 @@
 
 <!--begin::Content-->
 @section('crumbs')
+    <!--begin::Title-->
+    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">@if($method == 'POST') Add @else Edit @endif Country</h1>
+    <!--end::Title-->
+    <!--begin::Separator-->
+    <span class="h-20px border-gray-200 border-start mx-4"></span>
+    <!--end::Separator-->
+
     <!--begin::Breadcrumb-->
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
         <!--begin::Item-->
@@ -29,7 +36,7 @@
         </li>
         <!--end::Item-->
         <!--begin::Item-->
-        <li class="breadcrumb-item text-dark">Add</li>
+        <li class="breadcrumb-item text-dark">@if($method == 'POST') Add @else Edit @endif Country</li>
         <!--end::Item-->
     </ul>
     <!--end::Breadcrumb-->
@@ -75,7 +82,7 @@
                                  data-kt-image-input="true">
                                 <!--begin::Preview existing avatar-->
                                 <div class="image-input-wrapper w-150px h-150px"></div>
-                                <img src="  {{ isset($country->icon) ? asset('storage/' . $country->icon) : asset('assets/media/svg/files/blank-image.svg')}}" class="image-input-wrapper" width="150" height="150">
+                                <img src="  {{ isset($country->icon) ? storage_asset( $country->icon) : asset('assets/media/svg/files/blank-image.svg')}}" class="image-input-wrapper" width="150" height="150">
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Label-->
                                 <label

@@ -21,6 +21,12 @@
 @endsection
 
 @section('crumbs')
+    <!--begin::Title-->
+    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">View Role</h1>
+    <!--end::Title-->
+    <!--begin::Separator-->
+    <span class="h-20px border-gray-200 border-start mx-4"></span>
+    <!--end::Separator-->
     <!--begin::Breadcrumb-->
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
         <!--begin::Item-->
@@ -44,7 +50,7 @@
         </li>
         <!--end::Item-->
         <!--begin::Item-->
-        <li class="breadcrumb-item text-muted">View Role</li>
+        <li class="breadcrumb-item text-dark">View Role</li>
         <!--end::Item-->
     </ul>
     <!--end::Breadcrumb-->
@@ -303,7 +309,7 @@
                                                 class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                 <a href="apps/user-management/users/view.html">
                                                     <div class="symbol-label">
-                                                        <img src="{{asset('storage/' . $user->photo)}}"
+                                                        <img src="{{storage_asset( $user->photo)}}"
                                                              alt="Emma Smith" class="w-100" />
                                                     </div>
                                                 </a>
