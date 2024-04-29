@@ -47,10 +47,15 @@ class RolesController extends Controller
      */
     public function store(RoleStoreRequest $request): RedirectResponse
     {
-        $role =  Role::create($request->validated() + ['guard_name' => 'admin']);
-        $permissionNames = Permission::whereIn('id', $request->permissions)
-            ->pluck('name')
-            ->toArray();
+        $role =  Role::create($request->validated() + ['guard_name' => 'web']);
+
+        if (isset($request->permissions)) {
+            $permissionNames = Permission::whereIn('id', $request->permissions)
+                ->pluck('name')
+                ->toArray();
+        }else{
+            $permissionNames = [];
+        }
 
         $role->givePermissionTo($permissionNames);
         Session()->flash('success', 'Role Added Successfully');
@@ -73,9 +78,13 @@ class RolesController extends Controller
     {
         $role->update($request->validated());
 
-        $permissionNames = Permission::whereIn('id', $request->permissions)
-            ->pluck('name')
-            ->toArray();
+        if (isset($request->permissions)) {
+            $permissionNames = Permission::whereIn('id', $request->permissions)
+                ->pluck('name')
+                ->toArray();
+        }else{
+            $permissionNames = [];
+        }
 
         $role->syncPermissions($permissionNames);
         Session()->flash('success', 'Role Updated Successfully');
