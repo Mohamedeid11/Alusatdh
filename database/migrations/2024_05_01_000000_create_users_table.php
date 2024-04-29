@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
+            $table->enum('user_type',['admin','teacher' , 'student']);
             $table->enum('gender',['male','female']);
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
+            $table->string('country');
             $table->string('city')->nullable();
             $table->boolean('status')->default(1)->comment('1 = active | 0 = blocked');
             $table->string('timezone')->default('UTC');
@@ -28,8 +30,7 @@ return new class extends Migration
             $table->string('google_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
 
-            $table->unsignedBigInteger('country_id')->nullable();
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
+
 
             $table->rememberToken();
             $table->timestamps();

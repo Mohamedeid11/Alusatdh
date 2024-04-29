@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'status', 'gender', 'phone', 'photo', 'timezone',
+        'first_name', 'last_name', 'user_type','email', 'password', 'status', 'gender', 'phone', 'photo', 'timezone',
         'rate_per_hour', 'facebook_token', 'google_token', 'city' , 'country_id'
     ];
 
@@ -52,10 +52,5 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
-    }
-
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
     }
 }

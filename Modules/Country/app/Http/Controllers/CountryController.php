@@ -10,6 +10,8 @@ use Modules\Country\app\ViewModels\CountryViewModel;
 use Modules\Country\Http\Requests\StoreCountryRequest;
 use Modules\Country\Http\Requests\UpdateCountryRequest;
 use Modules\Country\Models\Country;
+use Monarobase\CountryList\CountryList;
+
 
 class CountryController extends Controller
 {
@@ -30,7 +32,10 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $countries = $this->countryService->getAllData();
+//        $countries = $this->countryService->getAllData();
+        $countryList = new CountryList();
+        $countries = $countryList->getList(); // Get all countries in an array
+
         return view('dashboard.countries.index' ,compact('countries'));
     }
 

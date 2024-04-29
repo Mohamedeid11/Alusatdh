@@ -237,60 +237,63 @@
                         </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
-                        @foreach($countries as $country)
+                        @foreach($countries as $key => $country)
                             <tr>
                                 <td>
                                     <div
                                         class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="{{$country->id}}" />
+                                        <input class="form-check-input" type="checkbox" value="{{$key}}" />
                                     </div>
                                 </td>
                                 <td>
                                     <a href="apps/ecommerce/customers/details.html"
-                                       class="text-gray-800 text-hover-primary mb-1"> {{ $country->name }} </a>
+                                       class="text-gray-800 text-hover-primary mb-1"> {{ $key }} </a>
                                 </td>
                                 <td>
-                                    @if($country->status == 1)
-                                        <div class="badge badge-light-success">Active</div>
-                                    @else
-                                        <div class="badge badge-light-danger">Locked</div>
-                                    @endif
+                                    {{ $country }}
                                 </td>
-                                <td>
-                                    <img src="{{storage_asset( $country->icon)}}" width="60" height="60">
-                                </td>
-                                <td class="text-end">
-                                    <a href="#"
-                                       class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
-                                       data-kt-menu-trigger="click"
-                                       data-kt-menu-placement="bottom-end">Actions
-                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                    <!--begin::Menu-->
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-175px py-4"
-                                         data-kt-menu="true">
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="apps/customers/view.html"
-                                               class="menu-link px-3">View</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="{{route('country.edit' , $country->id)}}" class="menu-link px-3">Edit</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <form action="{{route('country.destroy' , $country->id)}}"  method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="menu-link px-3 text-danger"> DELETE </button>
-                                            </form>
-                                        </div>
-                                        <!--end::Menu item-->
-                                    </div>
-                                    <!--end::Menu-->
-                                </td>
+{{--                                <td>--}}
+{{--                                    @if($country->status == 1)--}}
+{{--                                        <div class="badge badge-light-success">Active</div>--}}
+{{--                                    @else--}}
+{{--                                        <div class="badge badge-light-danger">Locked</div>--}}
+{{--                                    @endif--}}
+{{--                                </td>--}}
+{{--                                <td>--}}
+{{--                                    <img src="{{storage_asset( $country->icon)}}" width="60" height="60">--}}
+{{--                                </td>--}}
+{{--                                <td class="text-end">--}}
+{{--                                    <a href="#"--}}
+{{--                                       class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"--}}
+{{--                                       data-kt-menu-trigger="click"--}}
+{{--                                       data-kt-menu-placement="bottom-end">Actions--}}
+{{--                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>--}}
+{{--                                    <!--begin::Menu-->--}}
+{{--                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-175px py-4"--}}
+{{--                                         data-kt-menu="true">--}}
+{{--                                        <!--begin::Menu item-->--}}
+{{--                                        <div class="menu-item px-3">--}}
+{{--                                            <a href="apps/customers/view.html"--}}
+{{--                                               class="menu-link px-3">View</a>--}}
+{{--                                        </div>--}}
+{{--                                        <!--end::Menu item-->--}}
+{{--                                        <!--begin::Menu item-->--}}
+{{--                                        <div class="menu-item px-3">--}}
+{{--                                            <a href="{{route('country.edit' , $country->id)}}" class="menu-link px-3">Edit</a>--}}
+{{--                                        </div>--}}
+{{--                                        <!--end::Menu item-->--}}
+{{--                                        <!--begin::Menu item-->--}}
+{{--                                        <div class="menu-item px-3">--}}
+{{--                                            <form action="{{route('country.destroy' , $country->id)}}"  method="POST">--}}
+{{--                                                @csrf--}}
+{{--                                                @method('DELETE')--}}
+{{--                                                <button class="menu-link px-3 text-danger"> DELETE </button>--}}
+{{--                                            </form>--}}
+{{--                                        </div>--}}
+{{--                                        <!--end::Menu item-->--}}
+{{--                                    </div>--}}
+{{--                                    <!--end::Menu-->--}}
+{{--                                </td>--}}
                             </tr>
                         @endforeach
                         </tbody>
