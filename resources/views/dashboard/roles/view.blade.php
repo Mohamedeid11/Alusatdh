@@ -57,6 +57,7 @@
 @endsection
 
 @section('content')
+    @include('dashboard.layouts.alerts')
     <!--begin::Post-->
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->

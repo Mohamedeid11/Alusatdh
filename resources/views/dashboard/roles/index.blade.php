@@ -32,6 +32,16 @@
 @endsection
 
 @section('content')
+    @include('dashboard.layouts.alerts')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <!--begin::Post-->
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
@@ -49,8 +59,7 @@
                             <button type="button" class="btn btn-clear d-flex flex-column flex-center"
                                     data-bs-toggle="modal" data-bs-target="#kt_modal_add_role">
                                 <!--begin::Illustration-->
-                                <img src="{{asset('assets/media/illustrations/sketchy-1/4.png')}}" alt=""
-                                     class="mw-100 mh-150px mb-7" />
+                                <img src="{{asset('assets/media/illustrations/sketchy-1/4.png')}}" alt="" class="mw-100 mh-150px mb-7" />
                                 <!--end::Illustration-->
                                 <!--begin::Label-->
                                 <div class="fw-bold fs-3 text-gray-600 text-hover-primary">Add New Role</div>
@@ -64,7 +73,7 @@
                 </div>
                 <!--begin::Add new card-->
                 @foreach($roles as $role)
-                    <div class="col-md-4">
+                <div class="col-md-4">
                     <div class="card card-flush h-md-100">
                         <!--begin::Card header-->
                         <div class="card-header">
@@ -110,8 +119,7 @@
                         <!--begin::Card footer-->
                         <div class="card-footer flex-wrap pt-0">
                             <a href="{{route('roles.show' , $role->id)}}" class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
-                            <button type="button" class="btn btn-light btn-active-light-primary my-1" data-bs-toggle="modal" data-bs-target="#editRoleModal-{{ $role->id }}">Edit Role</button>
-                        </div>
+                            <button type="button"  class="btn btn-danger delete_confirmation" data-role-url="{{ route('roles.destroy' , $role->id) }}">Delete Role</button>                        </div>
                         <!--end::Card footer-->
                     </div>
                 </div>
@@ -163,9 +171,9 @@
                                         <!--begin::Input-->
                                         <input class="form-control form-control-solid" placeholder="Enter a role name" name="name" />
                                         @error('name')
-                                        <span class="text-danger" role="alert">
-{{--                                            <strong>{{ $message }}</strong>--}}
-                                        </span>
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                         <!--end::Input-->
                                     </div>
@@ -273,23 +281,55 @@
 @section('scripts')
     <script src="{{asset('assets/js/custom/apps/user-management/roles/list/add.js')}}"></script>
     <script src="{{asset('assets/js/custom/apps/user-management/roles/list/update-role.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {
-            display: {
-                viewMode: "calendar",
-                components: {
-                    decades: true,
-                    year: true,
-                    month: true,
-                    date: true,
-                    hours: false,
-                    minutes: false,
-                    seconds: false
-                }
-            }
-        });
+        const deleteButtons = document.querySelectorAll('.delete_confirmation');
 
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const url = button.getAttribute('data-role-url');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this role!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it',
+                    reverseButtons: true,
+                    customClass: {
+                        confirmButton: 'btn btn-danger',
+                        cancelButton: 'btn btn-primary'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Send DELETE request using Axios
+                        axios.delete(url)
+                            .then(response => {
+                                Swal.fire(
+                                    'Deleted!',
+                                    response.data.message,
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload();
+                                });
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                Swal.fire(
+                                    'Error!',
+                                    error.response.data.message,
+                                    'error'
+                                );
+                                console.error('Delete error:', error.response.data.message);
+                            });
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
         function sendNameOfPermission(name) {
 
             $('#' + name).change(function() {

@@ -23,6 +23,8 @@ class PermissionSeeder extends Seeder
         app()['cache']->forget('spatie.permission.cache');
 
         $adminRole  =  Role::firstOrCreate(['guard_name' => 'web','name' => 'admin']);
+        Role::firstOrCreate(['guard_name' => 'web','name' => 'student']);
+        Role::firstOrCreate(['guard_name' => 'web','name' => 'coordinator']);
 
         $adminPermissions = [
             // roles

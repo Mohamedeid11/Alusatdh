@@ -76,6 +76,11 @@ class RolesController extends Controller
      */
     public function update(RoleUpdateRequest $request, Role $role): RedirectResponse
     {
+        if ($request->name == 'admin'){
+            Session()->flash('error', 'You can\'t update this role');
+            return redirect()->back()->with('role');
+        }
+
         $role->update($request->validated());
 
         if (isset($request->permissions)) {
@@ -96,8 +101,13 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
+        $system_roles = ['admin' , 'student' , 'coordinator'];
+
+        if (in_array($role->name, $system_roles)){
+            return response()->json(['message' => 'This Role can\'t be deleted'], 400);
+        }
+
         $role->delete();
-        Session()->flash('success', 'Role Deleted Successfully');
-        return redirect()->back();
+        return response()->json(['message' => 'Role deleted successfully'], 200);
     }
 }
