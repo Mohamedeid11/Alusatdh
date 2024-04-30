@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'user_type','email', 'password', 'status', 'gender', 'phone', 'photo', 'timezone',
-        'rate_per_hour', 'facebook_token', 'google_token', 'city' , 'country_id'
+        'rate_per_hour', 'facebook_token', 'google_token', 'city' , 'country'
     ];
 
     protected $guard_name  = 'web';
