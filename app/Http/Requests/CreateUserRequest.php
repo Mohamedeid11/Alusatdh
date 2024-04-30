@@ -37,7 +37,7 @@ class CreateUserRequest extends FormRequest
             'gender' => 'required|in:male,female',
             'country' => ['required', Rule::in($countries)],
             'city' => 'nullable|string|max:255',
-            'timezone' => ['nullable', Rule::in($timezones)],
+            'timezone' => ['required', Rule::in($timezones)],
             'phone' => ['nullable', 'string', 'regex:/^\+?[0-9\-\(\) ]{6,20}$/','max:20']
 
         ];

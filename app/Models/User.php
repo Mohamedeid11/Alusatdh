@@ -24,6 +24,10 @@ class User extends Authenticatable
         'rate_per_hour', 'facebook_token', 'google_token', 'city' , 'country'
     ];
 
+    protected $attributes = [
+        'timezone' => 'UTC'
+    ];
+
     protected $guard_name  = 'web';
 
     /**

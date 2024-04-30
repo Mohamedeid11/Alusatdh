@@ -501,13 +501,13 @@
                                     <div class="fv-row mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
-                                            <span class="">Timezone</span>
+                                            <span class="required">Timezone</span>
                                             {{-- <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"></i> --}}
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select class="form-control form-control-solid"
-                                               name="timezone">
+                                               name="timezone" required>
                                             <option value="">select timezone</option>
                                             @foreach ($timezones as $timezone)
                                                 <option value="{{$timezone}}">{{$timezone}}</option>

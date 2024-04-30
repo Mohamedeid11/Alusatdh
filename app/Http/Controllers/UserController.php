@@ -37,22 +37,10 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        
-        $data = [
+        $validatedData = $request->validated();
 
-            "first_name" => $request->first_name,
-            "last_name" => $request->last_name,
-            "email" => $request->email,
-            "phone" => $request->phone,
-            "timezone" => $request->timezone,
-            "country" => $request->country,
-            "gender" => $request->gender,
-            "user_type" => $request->user_type,
-            "city" => $request->city
+        User::create($validatedData);
 
-        ];
-
-        User::create($data);
         return redirect()->back()->with('success', 'User created successfully');
 
     }
