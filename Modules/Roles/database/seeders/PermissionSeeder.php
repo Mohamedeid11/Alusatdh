@@ -39,11 +39,27 @@ class PermissionSeeder extends Seeder
             'users.edit',
             'users.delete',
 
-            //categories
-            'countries.read',
-            'countries.create',
-            'countries.edit',
-            'countries.delete',
+            //courses
+            'courses.read',
+            'courses.create',
+            'courses.edit',
+            'courses.delete',
+            'course_subscribers.read',
+            'course_subscribers.add',
+            'course_subscribers.edit',
+            'course_subscribers.delete',
+
+            //Levels
+            'levels.read',
+            'levels.create',
+            'levels.edit',
+            'levels.delete',
+
+            //Units
+            'units.read',
+            'units.create',
+            'units.edit',
+            'units.delete',
         ];
 
         foreach ($adminPermissions as $permission) {
