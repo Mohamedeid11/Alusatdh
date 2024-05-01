@@ -47,6 +47,9 @@
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
+
+            @include('dashboard.layouts.flashes')
+
             <!--begin::Card-->
             <div class="card">
                 <!--begin::Card header-->
@@ -279,8 +282,8 @@
                                     @endif
                                 </td>
                                 <td>{{ $user->phone }}</td>
-                                <td>Egypt</td>
-                                <td>Cairo</td>
+                                <td>{{ $user->country }}</td>
+                                <td>{{ $user->city }}</td>
                                 <td class="text-end">
                                 <a href="#"
                                    class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
@@ -331,8 +334,10 @@
                     <!--begin::Modal content-->
                     <div class="modal-content">
                         <!--begin::Form-->
-                        <form class="form" action="#" id="kt_modal_add_customer_form"
-                              data-kt-redirect="../../demo1/dist/apps/User/list.html">
+                        <form class="form" method="post" action="{{route('user.store')}}" id="create-user-form">
+                                {{-- id="kt_modal_add_customer_form" --}}
+                                {{-- data-kt-redirect="../../demo1/dist/apps/User/list.html" --}}
+                            @csrf
                             <!--begin::Modal header-->
                             <div class="modal-header" id="kt_modal_add_customer_header">
                                 <!--begin::Modal title-->
@@ -369,11 +374,22 @@
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-7">
                                         <!--begin::Label-->
-                                        <label class="required fs-6 fw-bold mb-2">Name</label>
+                                        <label class="required fs-6 fw-bold mb-2">First Name</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="text" class="form-control form-control-solid"
-                                               placeholder="" name="name" value="Sean Bean" />
+                                               placeholder="" name="first_name" required value="{{old("first_name")}}"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">Last Name</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="" name="last_name" value="{{old("last_name")}}"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
@@ -382,19 +398,168 @@
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
                                             <span class="required">Email</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7"
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7"
                                                data-bs-toggle="tooltip"
-                                               title="Email address must be active"></i>
+                                               title="Email address must be active"></i> --}}
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="email" class="form-control form-control-solid"
-                                               placeholder="" name="email" value="sean@dellito.com" />
+                                               placeholder="" name="email" required value="{{old("email")}}"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="fv-row mb-15">
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Password</span>
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7"
+                                               data-bs-toggle="tooltip"
+                                               title="Email address must be active"></i> --}}
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group">
+
+                                            <input type="password" class="form-control form-control-solid" placeholder="" name="password" required value="{{old("password")}}" id="password" />
+                                            <span class="input-group-text">
+                                                <i id="passwordToggle" class="fa fa-eye cursor-pointer" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Password Confirmation</span>
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7"
+                                               data-bs-toggle="tooltip"
+                                               title="Email address must be active"></i> --}}
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group">
+
+                                            <input type="password" class="form-control form-control-solid" placeholder="" name="password_confirmation" required value="{{old("password_confirmation")}}" id="confirmPassword"/>
+                                            <span class="input-group-text">
+                                                <i id="confirmPasswordToggle" class="fa fa-eye cursor-pointer" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Type</span>
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"></i> --}}
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-control form-control-solid"
+                                               name="user_type" required>
+                                            <option value="">select type</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="teacher">Teacher</option>
+                                            <option value="student">Student</option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Gender</span>
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"></i> --}}
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-control form-control-solid"
+                                               name="gender" required>
+                                            <option value="">select gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Country</span>
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"></i> --}}
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-control form-control-solid"
+                                               name="country" required>
+                                            <option value="">select country</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{$country}}">{{$country}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="">City</span>
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7"
+                                               data-bs-toggle="tooltip"
+                                               title="Email address must be active"></i> --}}
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="" name="city" value="{{old("ciry")}}"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="">Phone</span>
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7"
+                                               data-bs-toggle="tooltip"
+                                               title="Email address must be active"></i> --}}
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="tel" class="form-control form-control-solid"
+                                               placeholder="" name="phone" value="{{old("phone")}}"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="">Timezone</span>
+                                            {{-- <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"></i> --}}
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-control form-control-solid"
+                                               name="timezone">
+                                            <option value="">select timezone</option>
+                                            @foreach ($timezones as $timezone)
+                                                <option value="{{$timezone}}">{{$timezone}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    {{-- <div class="fv-row mb-15">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">Description</label>
                                         <!--end::Label-->
@@ -402,10 +567,10 @@
                                         <input type="text" class="form-control form-control-solid"
                                                placeholder="" name="description" />
                                         <!--end::Input-->
-                                    </div>
+                                    </div> --}}
                                     <!--end::Input group-->
                                     <!--begin::Billing toggle-->
-                                    <div class="fw-bolder fs-3 rotate collapsible mb-7"
+                                    {{-- <div class="fw-bolder fs-3 rotate collapsible mb-7"
                                          data-bs-toggle="collapse"
                                          href="#kt_modal_add_customer_billing_info" role="button"
                                          aria-expanded="false" aria-controls="kt_customer_view_details">
@@ -422,10 +587,10 @@
 															</span>
                                             <!--end::Svg Icon-->
 														</span>
-                                    </div>
+                                    </div> --}}
                                     <!--end::Billing toggle-->
                                     <!--begin::Billing form-->
-                                    <div id="kt_modal_add_customer_billing_info" class="collapse show">
+                                    {{-- <div id="kt_modal_add_customer_billing_info" class="collapse show">
                                         <!--begin::Input group-->
                                         <div class="d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
@@ -781,8 +946,11 @@
                                             <!--begin::Wrapper-->
                                         </div>
                                         <!--end::Input group-->
-                                    </div>
+                                    </div> --}}
                                     <!--end::Billing form-->
+                                </div>
+                                <div class="fv-row mb-3 mt-3">
+                                    <span id="confirmMessage" class="d-none alert-danger">Password and Password Confirmation don't match</span>
                                 </div>
                                 <!--end::Scroll-->
                             </div>
@@ -963,5 +1131,42 @@
     </script>
     <script>
         $("#kt_daterangepicker_1").daterangepicker();
+        $(document).ready(function() {
+            $('#passwordToggle').click(function(){
+                var input = $('#password');
+                var icon = $(this);
+                if (input.attr('type') === 'password') {
+                    input.attr('type', 'text');
+                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    input.attr('type', 'password');
+                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+
+            $('#confirmPasswordToggle').click(function(){
+                var input = $('#confirmPassword');
+                var icon = $(this);
+                if (input.attr('type') === 'password') {
+                    input.attr('type', 'text');
+                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    input.attr('type', 'password');
+                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+
+            $('#create-user-form').submit(function(e) {
+                var password = $('#password').val();
+                var confirmPassword = $('#confirmPassword').val();
+                var confirmMessage = $('#confirmMessage');
+                if (password !== confirmPassword) {
+                    confirmMessage.removeClass('d-none');
+                    e.preventDefault();
+                } else {
+                    confirmMessage.addClass('d-none');
+                }
+            });
+        });
     </script>
 @endsection

@@ -19,12 +19,13 @@ return new class extends Migration
             $table->enum('user_type',['admin','teacher' , 'student']);
             $table->enum('gender',['male','female']);
             $table->string('phone')->nullable();
-            $table->string('photo')->nullable();
-            $table->string('country');
+            $table->string('photo')->default('assets/media/avatars/blank.png');
+            $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->boolean('status')->default(1)->comment('1 = active | 0 = blocked');
+            $table->boolean('system')->default(0)->comment('if system = 1, user is only deleted manually');
             $table->string('timezone')->default('UTC');
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->integer('rate_per_hour')->nullable();
             $table->string('facebook_token')->nullable();
             $table->string('google_token')->nullable();
