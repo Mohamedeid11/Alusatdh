@@ -16,4 +16,5 @@ use Modules\Roles\Http\Controllers\RolesController;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('roles', RolesController::class)->names('roles');
+    Route::post('/roles/assign/{role}', [RolesController::class ,'assignUser'])->name('roles.assignUser');
 });

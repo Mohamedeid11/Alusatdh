@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Monarobase\CountryList\CountryList;
 
 class UserController extends Controller
 {
@@ -14,7 +16,12 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('dashboard.users.index' , compact('users'));
+
+        $countryList = new CountryList();
+        $countries = $countryList->getList(); // Get all countries in an array
+        $timezones = timezone_identifiers_list();
+
+        return view('dashboard.users.index' , compact('users', 'countries', 'timezones'));
     }
 
     /**
@@ -28,9 +35,17 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+
+        $validatedData = $request->validated();
+
+        $user = User::create($validatedData);
+
+        $user->assignRole($user->user_type);
+
+        return redirect()->back()->with('success', 'User created successfully');
+
     }
 
     /**

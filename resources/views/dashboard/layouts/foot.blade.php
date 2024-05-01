@@ -1,5 +1,11 @@
 <!--begin::Javascript-->
 <!--begin::Global Javascript Bundle(used by all pages)-->
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
 <script src="{{asset('assets/js/scripts.bundle.js')}}"></script>
 <!--end::Global Javascript Bundle-->
@@ -25,6 +31,8 @@
 <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}"></script>
 <script src="{{asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js')}}"></script>
 <script src="{{asset('assets/js/custom/apps/ecommerce/catalog/save-category.js')}}"></script>
-<!--end::Javascript-->
-
+<script src="{{asset('assets/js/custom/apps/user-management/roles/view/view.js')}}"></script>
+<script src="{{asset('assets/js/custom/apps/user-management/roles/view/update-role.js')}}"></script>
+<script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
+<!--end::Javascript--
 @yield('scripts')

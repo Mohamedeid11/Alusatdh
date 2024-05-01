@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'phone'     => '0123456789',
             'password'  => '123456789',
             'gender'  => 'male',
+            'system' => 1
         ]);
     }
 }
