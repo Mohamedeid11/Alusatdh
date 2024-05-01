@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('sort_desc');
             $table->text('description')->nullable();
             $table->enum('subject',['quran' , 'arabic' , 'islamic']);
-            $table->enum('subject',['free' , 'paid']);
+            $table->enum('payment_type',['free' , 'paid']);
             $table->timestamps();
         });
     }
