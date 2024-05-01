@@ -25,6 +25,8 @@
 <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}"></script>
 <script src="{{asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js')}}"></script>
 <script src="{{asset('assets/js/custom/apps/ecommerce/catalog/save-category.js')}}"></script>
-<!--end::Javascript-->
-
+<script src="{{asset('assets/js/custom/apps/user-management/roles/view/view.js')}}"></script>
+<script src="{{asset('assets/js/custom/apps/user-management/roles/view/update-role.js')}}"></script>
+<script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
+<!--end::Javascript--
 @yield('scripts')

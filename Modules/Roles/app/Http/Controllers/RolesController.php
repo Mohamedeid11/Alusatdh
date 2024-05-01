@@ -3,6 +3,7 @@
 namespace Modules\Roles\Http\Controllers;
 
 //use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller; // Extend this class
@@ -68,7 +69,12 @@ class RolesController extends Controller
      */
     public function show(Role $role)
     {
-        return view('dashboard.roles.view', new RoleViewModel($role));
+        // Get all users with 'status' 1 who do not have the specific role
+        $users = User::where('status', 1)->whereDoesntHave('roles', function ($query) use ($role) {
+            $query->where('id', $role->id);  // Assuming you are passing a Role object
+        })->get();
+
+        return view('dashboard.roles.view', new RoleViewModel($role) ,compact( 'users'));
     }
 
     /**
@@ -109,5 +115,27 @@ class RolesController extends Controller
 
         $role->delete();
         return response()->json(['message' => 'Role deleted successfully'], 200);
+    }
+
+    public function assignUser(Request $request, Role $role)
+    {
+        // Assuming 'user_ids' is the name of the input field containing the user IDs
+        $userIds = $request->input('users');
+
+        if ($userIds) {
+            // Retrieve all users by their IDs
+            $users = User::findMany($userIds);
+
+            // Assign the role to each user
+            foreach ($users as $user) {
+                $user->assignRole($role);
+            }
+
+            // Optional: Add a success message or perform other actions
+            return redirect()->back()->with('success', 'Users have been assigned the role successfully!');
+        } else {
+            // No user IDs were provided, handle the error as needed
+            return redirect()->back()->with('error', 'No users were selected.');
+        }
     }
 }

@@ -106,8 +106,7 @@
                         <!--end::Card body-->
                         <!--begin::Card footer-->
                         <div class="card-footer pt-0">
-                            <button type="button" class="btn btn-light btn-active-primary"
-                                    data-bs-toggle="modal" data-bs-target="#editRoleModal-{{ $role->id }}">Edit Role</button>
+                            <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#editRoleModal-{{ $role->id }}">Edit Role</button>
                         </div>
                         <!--end::Card footer-->
                     </div>
@@ -275,6 +274,7 @@
                                     <span class="text-gray-600 fs-6 ms-1">({{$role->users->count()}})</span>
                                 </h2>
                             </div>
+
                             <!--end::Card title-->
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
@@ -285,7 +285,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <input type="text" data-kt-roles-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Users" />
+                                    <input type="text" data-kt-roles-table-filter="search"class="form-control form-control-solid w-250px ps-15" placeholder="Search Users" />
                                 </div>
                                 <!--end::Search-->
                                 <!--begin::Group actions-->
@@ -301,29 +301,32 @@
                                 <!--end::Group actions-->
                             </div>
                             <!--end::Card toolbar-->
+
+                            <div class="card-title">
+                                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"data-bs-target="#kt_modal_users_search">Assign User</a>
+                            </div>
                         </div>
                         <!--end::Card header-->
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0"
-                                   id="kt_roles_view_table">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0" id="kt_roles_view_table">
                                 <thead>
-                                <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="w-10px pe-2">
-                                        <div
-                                            class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                            <input class="form-check-input" type="checkbox"
-                                                   data-kt-check="true"
-                                                   data-kt-check-target="#kt_roles_view_table .form-check-input"
-                                                   value="1" />
-                                        </div>
-                                    </th>
-                                    <th class="min-w-50px">ID</th>
-                                    <th class="min-w-150px">User</th>
-                                    <th class="min-w-125px">Joined Date</th>
-                                    <th class="text-end min-w-100px">Actions</th>
-                                </tr>
+                                    <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                        <th class="w-10px pe-2">
+                                            <div
+                                                class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                                <input class="form-check-input" type="checkbox"
+                                                       data-kt-check="true"
+                                                       data-kt-check-target="#kt_roles_view_table .form-check-input"
+                                                       value="1" />
+                                            </div>
+                                        </th>
+                                        <th class="min-w-50px">ID</th>
+                                        <th class="min-w-150px">User</th>
+                                        <th class="min-w-125px">Joined Date</th>
+                                        <th class="text-end min-w-100px">Actions</th>
+                                    </tr>
                                 </thead>
                                 <tbody class="fw-semibold text-gray-600">
                                 @foreach($role->users as $user)
@@ -400,14 +403,174 @@
         <!--end::Content container-->
     </div>
     <!--end::Post-->
+
+    <!--begin::Modal - Users Search-->
+    <div class="modal fade" id="kt_modal_users_search" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
+                    <!--begin::Content-->
+                    <div class="text-center mb-13">
+                        <h1 class="mb-3">Search Users</h1>
+                        <div class="text-muted fw-semibold fs-5">Assign users to this role</div>
+                    </div>
+                    <!--end::Content-->
+                    <!--begin::Search-->
+                    <div id="kt_modal_users_search_handler" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="inline">
+                        <!--begin::Form-->
+                        <form data-kt-search-element="form" class="w-100 position-relative mb-5" autocomplete="off">
+                            <!--begin::Hidden input(Added to disable form autocomplete)-->
+                            <input type="hidden" />
+                            <!--end::Hidden input-->
+                            <!--begin::Icon-->
+                            <i class="ki-duotone ki-magnifier fs-2 fs-lg-1 text-gray-500 position-absolute top-50 ms-5 translate-middle-y">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            <!--end::Icon-->
+                            <!--begin::Input-->
+                            <input type="text" class="form-control form-control-lg form-control-solid px-15" name="search" value="" placeholder="Search by username, full name or email..." data-kt-search-element="input" />
+                            <!--end::Input-->
+                            <!--begin::Spinner-->
+                            <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5"
+                                  data-kt-search-element="spinner">
+								<span class="spinner-border h-15px w-15px align-middle text-muted"></span>
+							</span>
+                            <!--end::Spinner-->
+                            <!--begin::Reset-->
+                            <span class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 me-5 d-none" data-kt-search-element="clear">
+								<i class="ki-duotone ki-cross fs-2 fs-lg-1 me-0">
+									<span class="path1"></span>
+									<span class="path2"></span>
+								</i>
+							</span>
+                            <!--end::Reset-->
+                        </form>
+                        <!--end::Form-->
+                        <!--begin::Wrapper-->
+                        <div class="py-5">
+                            <!--begin::Suggestions-->
+                            <div data-kt-search-element="suggestions">
+                                <!--begin::Heading-->
+                                <h3 class="fw-semibold mb-5">Recently Added</h3>
+                                <!--end::Heading-->
+                                <!--begin::Users-->
+                                <div class="mh-375px scroll-y me-n7 pe-7">
+                                    @foreach($role->users()->latest()->take(5)->get() as $oneUser)
+                                    <!--begin::User-->
+                                        <a href="{{route('user.show' , $oneUser->id)}}" class="d-flex align-items-center p-3 rounded bg-state-light bg-state-opacity-50 mb-1">
+                                        <!--begin::Avatar-->
+                                        <div class="symbol symbol-35px symbol-circle me-5">
+                                            <img alt="Pic" src="{{storage_asset($oneUser->photo)}}" />
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <!--begin::Info-->
+                                        <div class="fw-semibold">
+                                            <span class="fs-6 text-gray-800 me-2">{{$oneUser->full_name}}</span>
+                                            <span class="badge badge-light">{{$oneUser->user_type}}</span>
+                                        </div>
+                                        <!--end::Info-->
+                                    </a>
+                                    <!--end::User-->
+                                    @endforeach
+                                </div>
+                                <!--end::Users-->
+                            </div>
+                            <!--end::Suggestions-->
+                            <!--begin::Results(add d-none to below element to hide the users list by default)-->
+                            <form action="{{route('roles.assignUser' , $role->id)}}" method="post">
+                                @csrf
+                                <div data-kt-search-element="results" class="d-none">
+                                <!--begin::Users-->
+                                <div class="mh-375px scroll-y me-n7 pe-7">
+                                    @foreach($users as $user)
+                                        <!--begin::User-->
+                                        <div class="rounded d-flex flex-stack bg-active-lighten p-4" data-user-id="0">
+                                            <!--begin::Details-->
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Checkbox-->
+                                                <label class="form-check form-check-custom form-check-solid me-5">
+                                                    <input class="form-check-input" type="checkbox" name="users[]" data-kt-check="true" data-kt-check-target="[data-user-id='{{$user->id}}']" value="{{$user->id}}" />
+                                                </label>
+                                                <!--end::Checkbox-->
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-35px symbol-circle">
+                                                    <img alt="Pic" src="{{storage_asset($user->photo)}}" />
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::Details-->
+                                                <div class="ms-5">
+                                                    <a href="{{route('user.show' , $user->id)}}" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">{{$user->full_name}}</a>
+                                                    <div class="fw-semibold text-muted">{{$user->email}}</div>
+                                                </div>
+                                                <!--end::Details-->
+                                            </div>
+                                            <!--end::Details-->
+                                            <!--begin::Access menu-->
+                                            <p>{{$user->user_type}}</p>
+                                            <!--end::Access menu-->
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Separator-->
+                                        <div class="border-bottom border-gray-300 border-bottom-dashed"></div>
+                                        <!--end::Separator-->
+                                    @endforeach
+                                </div>
+                                <!--end::Users-->
+                                <!--begin::Actions-->
+                                <div class="d-flex flex-center mt-15">
+                                    <button type="reset" id="kt_modal_users_search_reset" data-bs-dismiss="modal" class="btn btn-active-light me-3">Cancel</button>
+                                    <button type="submit" id="kt_modal_users_search_submit" class="btn btn-primary">Add Selected Users</button>
+                                </div>
+                                <!--end::Actions-->
+                            </div>
+                            </form>
+                            <!--end::Results-->
+                            <!--begin::Empty-->
+                            <div data-kt-search-element="empty" class="text-center d-none">
+                                <!--begin::Message-->
+                                <div class="fw-semibold py-10">
+                                    <div class="text-gray-600 fs-3 mb-2">No users found</div>
+                                    <div class="text-muted fs-6">Try to search by username, full name or email...</div>
+                                </div>
+                                <!--end::Message-->
+                                <!--begin::Illustration-->
+                                <div class="text-center px-5">
+                                    <img src="{{asset('assets/media/illustrations/sketchy-1/1.png')}}" alt=""class="w-100 h-200px h-sm-325px" />
+                                </div>
+                                <!--end::Illustration-->
+                            </div>
+                            <!--end::Empty-->
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                    <!--end::Search-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <!--end::Modal - Users Search-->
 @endsection
 
 @section('scripts')
-    <script src="{{asset('assets/js/custom/apps/user-management/roles/view/view.js')}}"></script>
-    <script src="{{asset('assets/js/custom/apps/user-management/roles/view/update-role.js')}}"></script>
-
-    <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
-
     <script>
         new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {
             display: {
