@@ -281,7 +281,6 @@
 @section('scripts')
     <script src="{{asset('assets/js/custom/apps/user-management/roles/list/add.js')}}"></script>
     <script src="{{asset('assets/js/custom/apps/user-management/roles/list/update-role.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
         const deleteButtons = document.querySelectorAll('.delete_confirmation');
