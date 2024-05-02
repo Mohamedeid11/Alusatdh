@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Modules\Country\Models\Country;
+use Modules\Course\Models\Course;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -57,5 +58,13 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_user')
+            ->withPivot('role')
+            ->withTimestamps();
     }
 }

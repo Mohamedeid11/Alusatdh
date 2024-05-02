@@ -5,6 +5,7 @@ namespace Modules\Course\app\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 use Modules\Course\app\Services\CourseService;
+use Modules\Course\app\ViewModels\CourseViewModel;
 use Modules\Course\Http\Requests\StoreCourseRequest;
 use Modules\Course\Http\Requests\UpdateCourseRequest;
 use Modules\Course\Models\Course;
@@ -16,10 +17,10 @@ class CourseController extends Controller
     public function __construct(CourseService $courseService)
     {
         $this->courseService = $courseService;
-        $this->middleware('permission:courses.read,admin', ['only' => ['index']]);
-        $this->middleware('permission:courses.create,admin', ['only' => ['create', 'store']]);
-        $this->middleware('permission:courses.edit,admin', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:courses.delete,admin', ['only' => ['destroy']]);
+        $this->middleware('permission:courses.read', ['only' => ['index']]);
+        $this->middleware('permission:courses.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:courses.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:courses.delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -27,7 +28,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('course::index');
+        $courses = Course::with('users')->get();
+        return view('dashboard.courses.index' , compact('courses'));
     }
 
     /**
@@ -35,7 +37,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('course::create');
+        return view('dashboard.courses.form' , new CourseViewModel());
     }
 
     /**
