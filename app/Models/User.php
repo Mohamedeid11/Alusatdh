@@ -6,9 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 use Modules\Country\Models\Country;
-use Modules\Course\Models\Course;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -60,11 +60,8 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
-
-    public function courses()
+    public function getFullPhotoPathAttribute()
     {
-        return $this->belongsToMany(Course::class, 'course_user')
-            ->withPivot('role')
-            ->withTimestamps();
+        return $this->attributes['photo']? asset(Storage::url($this->photo)) : asset('assets/media/avatars/blank.png');
     }
 }

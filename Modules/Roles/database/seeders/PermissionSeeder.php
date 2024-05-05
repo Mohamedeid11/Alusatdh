@@ -22,9 +22,9 @@ class PermissionSeeder extends Seeder
 
         app()['cache']->forget('spatie.permission.cache');
 
-        $adminRole  =  Role::firstOrCreate(['guard_name' => 'web','name' => 'admin']);
+        $adminRole  =  Role::firstOrCreate(['guard_name' => 'web','name' => 'super_admin']);
+        Role::firstOrCreate(['guard_name' => 'web','name' => 'admin']);
         Role::firstOrCreate(['guard_name' => 'web','name' => 'student']);
-        Role::firstOrCreate(['guard_name' => 'web','name' => 'coordinator']);
         Role::firstOrCreate(['guard_name' => 'web','name' => 'teacher']);
 
         $adminPermissions = [
@@ -69,7 +69,7 @@ class PermissionSeeder extends Seeder
         $adminRole->givePermissionTo($adminPermissions);
         $admin = User::find(1);
         if($admin){
-            $admin->assignRole('admin');
+            $admin->assignRole('super_admin');
         }
 
     }

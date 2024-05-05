@@ -66,7 +66,7 @@
                         <div class="me-7 mb-4">
                             <div
                                 class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                <img src="{{storage_asset($user->photo)}}" alt="image" />
+                                <img src="{{ $user->full_photo_path }}" alt="image" />
                                 <div
                                     class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                                 </div>
@@ -100,19 +100,19 @@
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                                 <span class="path3"></span>
-                                            </i>Student</a>
+                                            </i>{{ $user->user_type }}</a>
                                         <a href="#"
                                            class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
                                             <i class="ki-duotone ki-geolocation fs-4 me-1">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
-                                            </i>Cairo, Egypt</a>
+                                            </i>{{ $user->city ? $user->city . ", " : '' }} {{ $user->country }}</a>
                                         <a href="#"
                                            class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
                                             <i class="ki-duotone ki-sms fs-4">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
-                                            </i>max@kt.com</a>
+                                            </i>{{ $user->email }}</a>
                                     </div>
                                     <!--end::Info-->
                                 </div>
@@ -249,7 +249,7 @@
                                 <!--begin::Wrapper-->
                                 <div class="d-flex flex-column flex-grow-1 pe-8">
                                     <!--begin::Stats-->
-                                    <div class="d-flex flex-wrap">
+                                    {{-- <div class="d-flex flex-wrap">
                                         <!--begin::Stat-->
                                         <div
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
@@ -314,7 +314,7 @@
                                             <!--end::Label-->
                                         </div>
                                         <!--end::Stat-->
-                                    </div>
+                                    </div> --}}
                                     <!--end::Stats-->
                                 </div>
                                 <!--end::Wrapper-->
@@ -329,14 +329,14 @@
                         class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 active"
-                               href="profile-overview.html">Overview</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5{{ request()->route()->getName() === 'user.show' ? ' active' : '' }}"
+                               href="{{ route('user.show', $user->id) }}">Overview</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                               href="profile-settings.html">Settings</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5{{ request()->route()->getName() === 'user.edit' ? ' active' : '' }}"
+                               href="{{ route('user.edit', $user->id) }}">Settings</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
@@ -385,13 +385,37 @@
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">Max Smith</span>
+                            <span class="fw-bold fs-6 text-gray-800">{{ $user->full_name }}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
+                    <!--begin::Row-->
+                    <div class="row mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">User Type</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{ $user->user_type }}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
+                    <!--begin::Row-->
+                    <div class="row mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Gender</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{ $user->gender }}</span>
                         </div>
                         <!--end::Col-->
                     </div>
                     <!--end::Row-->
                     <!--begin::Input group-->
-                    <div class="row mb-7">
+                    {{-- <div class="row mb-7">
                         <!--begin::Label-->
                         <label class="col-lg-4 fw-semibold text-muted">Company</label>
                         <!--end::Label-->
@@ -400,7 +424,7 @@
                             <span class="fw-semibold text-gray-800 fs-6">Keenthemes</span>
                         </div>
                         <!--end::Col-->
-                    </div>
+                    </div> --}}
                     <!--end::Input group-->
                     <!--begin::Input group-->
                     <div class="row mb-7">
@@ -417,14 +441,14 @@
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8 d-flex align-items-center">
-                            <span class="fw-bold fs-6 text-gray-800 me-2">044 3276 454 935</span>
-                            <span class="badge badge-success">Verified</span>
+                            <span class="fw-bold fs-6 text-gray-800 me-2">{{ $user->phone }}</span>
+                            {{-- <span class="badge badge-success">Verified</span> --}}
                         </div>
                         <!--end::Col-->
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
-                    <div class="row mb-7">
+                    {{-- <div class="row mb-7">
                         <!--begin::Label-->
                         <label class="col-lg-4 fw-semibold text-muted">Company Site</label>
                         <!--end::Label-->
@@ -434,7 +458,7 @@
                                class="fw-semibold fs-6 text-gray-800 text-hover-primary">keenthemes.com</a>
                         </div>
                         <!--end::Col-->
-                    </div>
+                    </div> --}}
                     <!--end::Input group-->
                     <!--begin::Input group-->
                     <div class="row mb-7">
@@ -450,7 +474,38 @@
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">Germany</span>
+                            <span class="fw-bold fs-6 text-gray-800">{{ $user->country }}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="row mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">City
+                            <span class="ms-1" data-bs-toggle="tooltip" title="city of origination">
+												<i class="ki-duotone ki-information fs-7">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+												</i>
+											</span></label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{ $user->city }}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="row mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Timezone</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{ $user->timezone }}</span>
                         </div>
                         <!--end::Col-->
                     </div>
@@ -462,13 +517,13 @@
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">Email, Phone</span>
+                            <span class="fw-bold fs-6 text-gray-800">{{ $user->email }} {{ $user->phone? ", " . $user->phone  : '' }}</span>
                         </div>
                         <!--end::Col-->
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
-                    <div class="row mb-10">
+                    {{-- <div class="row mb-10">
                         <!--begin::Label-->
                         <label class="col-lg-4 fw-semibold text-muted">Allow Changes</label>
                         <!--begin::Label-->
@@ -477,7 +532,7 @@
                             <span class="fw-semibold fs-6 text-gray-800">Yes</span>
                         </div>
                         <!--begin::Label-->
-                    </div>
+                    </div> --}}
                     <!--end::Input group-->
                     <!--begin::Notice-->
                     <div

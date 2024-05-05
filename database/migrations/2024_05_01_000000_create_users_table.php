@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('user_type',['admin','teacher' , 'student']);
             $table->enum('gender',['male','female']);
             $table->string('phone')->nullable();
-            $table->string('photo')->default('assets/media/avatars/blank.png');
+            $table->string('photo')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->boolean('status')->default(1)->comment('1 = active | 0 = blocked');

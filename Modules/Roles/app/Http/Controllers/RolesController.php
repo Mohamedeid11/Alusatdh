@@ -107,7 +107,7 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        $system_roles = ['admin' , 'student' , 'coordinator'];
+        $system_roles = ['super_admin' ,'admin' , 'student' , 'teacher'];
 
         if (in_array($role->name, $system_roles)){
             return response()->json(['message' => 'This Role can\'t be deleted'], 400);

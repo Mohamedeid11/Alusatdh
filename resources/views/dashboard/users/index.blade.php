@@ -48,7 +48,16 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
 
-            @include('dashboard.layouts.flashes')
+            @include('dashboard.layouts.alerts')
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <!--begin::Card-->
             <div class="card">
@@ -248,12 +257,12 @@
                                                value="1" />
                                     </div>
                                 </th>
-                                <th class="min-w-175px">Customer Name</th>
-                                <th class="min-w-175px">Email</th>
-                                <th class="min-w-175px">Status</th>
-                                <th class="min-w-175px">Phone</th>
-                                <th class="min-w-175px">Country</th>
-                                <th class="min-w-175px">City</th>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Phone</th>
+                                <th>Country</th>
+                                <th>City</th>
                                 <th class="text-end min-w-70px">Actions</th>
                             </tr>
                         </thead>
@@ -261,18 +270,15 @@
                             @foreach($users as $user)
                             <tr>
                                 <td>
-                                    <div
-                                        class="form-check form-check-sm form-check-custom form-check-solid">
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
                                         <input class="form-check-input" type="checkbox" value="1" />
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="apps/ecommerce/customers/details.html"
-                                       class="text-gray-800 text-hover-primary mb-1"> {{ $user->full_name }} </a>
+                                    <a href="{{route('user.show' , $user->id)}}" class="text-gray-800 text-hover-primary mb-1"> {{ $user->full_name }} </a>
                                 </td>
                                 <td>
-                                    <a href="#"
-                                       class="text-gray-600 text-hover-primary mb-1">{{ $user->email }}</a>
+                                    <a href="{{route('user.show' , $user->id)}}" class="text-gray-600 text-hover-primary mb-1">{{ $user->email }}</a>
                                 </td>
                                 <td>
                                     @if($user->status == 1)
@@ -310,8 +316,15 @@
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3 text-danger" data-kt-customer-table-filter="delete_row">Delete</a>
+                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="delete-user-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="menu-link px-3 text-danger" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </div>
+
                                     <!--end::Menu item-->
                                 </div>
                                 <!--end::Menu-->
@@ -1113,7 +1126,9 @@
 @endsection
 
 @section('scripts')
+
     <script>
+
         new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {
             display: {
                 viewMode: "calendar",
@@ -1128,6 +1143,7 @@
                 }
             }
         });
+
     </script>
     <script>
         $("#kt_daterangepicker_1").daterangepicker();
@@ -1166,6 +1182,30 @@
                 } else {
                     confirmMessage.addClass('d-none');
                 }
+            });
+
+            $('.delete-user-form').submit(function(e) {
+                e.preventDefault(); // Prevent the form from submitting immediately
+
+                const form = $(this);
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'Do you want to delete this user?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it',
+                    reverseButtons: true,
+                    customClass: {
+                        confirmButton: 'btn btn-danger',
+                        cancelButton: 'btn btn-primary'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.unbind('submit').submit(); // Submit the form if confirmed
+                    }
+                });
             });
         });
     </script>

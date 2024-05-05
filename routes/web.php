@@ -17,4 +17,4 @@ Route::group(['as' => 'auth.'], function () {
     Route::get('/register', [AuthController::class , 'register' ])->name('register');
 });
 
-Route::resource('/user' , UserController::class);
+Route::resource('/user' , UserController::class)->middleware('auth');
